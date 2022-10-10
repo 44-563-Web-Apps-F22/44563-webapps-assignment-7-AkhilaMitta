@@ -166,51 +166,58 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
 
         <script>
-            var ids = [
-                        "img_0", "img_1", "img_2", "img_3", "img_4","img_5", "img_6", "img_7", "img_8", "img_9","img_10", "img_11", "img_12", "img_13", "img_14","img_15", "img_16", "img_17", "img_18", "img_19","img_20", "img_21", "img_22", "img_23", "img_24"
-                    ]
-            var chestCount = 0
-            var score = 0
-            var lastCheck = 12
-            var treasureLocation = 9
-
-            function check(position) {
-                image = document.getElementById(ids[position])
-                if(position == treasureLocation) {
-                    image.src = "treasure.jpg"
-                } else {
-                    image.src = "empty treasure chest.jpg"
-                }
-                chestCount += 1
-                score += 1 // to change
-                document.getElementById("chests").innerHTML = "Number of chests checked is " +         chestCount;
-                document.getElementById("score").innerHTML = "Score is " + score
-                lastCheck = position;
+            let ids=[];
+            for(let i=0;i<25;i++){
+              ids[i]="img"+i
             }
-
-            function help() {
-                lastCheck_row = parseInt(lastCheck / 5)
-                lastCheck_column = parseInt(lastCheck % 5)
-                treasureLocation_row = parseInt(treasureLocation / 5)
-                treasureLocation_column = parseInt(treasureLocation % 5)
-                score += 2
-                document.getElementById("score").innerHTML = "Score is " + score
-                if(lastCheck_row == treasureLocation_row) {
-                    if(lastCheck_column < treasureLocation_column) {
-                        document.getElementById("help").innerHTML = "Left"
-                    } else {
-                        document.getElementById("help").innerHTML = "Right"
-                    }
-                } else if(lastCheck_column == treasureLocation_column) {
-                    if(lastCheck_row < treasureLocation_row) {
-                        document.getElementById("help").innerHTML = "Down"
-                    } else {
-                        document.getElementById("help").innerHTML = "Up"
-                    }
-                } else {
-                    document.getElementById("help").innerHTML = "Sorry, no help available"
-                }
+          let chestCount=0;
+          let score=0;
+          let lastCheck=12;
+          let treasureLocation=18;
+          function check(position){
+           let imgLoc= document.getElementById(ids[position]);
+           if(position==treasureLocation){
+            imgLoc.src="treasure chest.jpg";
+            
+           }
+           else{
+            imgLoc.src="empty treasure chest.jpg";
+           }
+           chestCount+=1;
+           score+=1;
+           document.getElementById("chests").innerHTML="Number of chests checked is "+chestCount+".";
+           document.getElementById("score").innerHTML="Score is "+score+".";
+           lastCheck=position;
+          }
+          function help(){
+            column=lastCheck%5;
+            row=lastCheck/5;
+            treasureColumn=treasureLocation%5;
+            treasureRow=treasureLocation/5;
+            score+=2;
+            document.getElementById("score").innerHTML="Score is "+score+".";
+            if(lastCheck==treasureLocation){
+              document.getElementById("help").innerHTML="Sorry, no help available";
             }
-        </script>
+            else if(parseInt(row)==parseInt(treasureRow)){
+              if(row<treasureRow){
+                document.getElementById("help").innerHTML="right";
+              }
+              else{
+                document.getElementById("help").innerHTML="left";
+              }
+            }
+            else if(column==treasureColumn){
+              if(lastCheck<treasureLocation){
+                document.getElementById("help").innerHTML="down";
+              }
+              else{
+                document.getElementById("help").innerHTML="up";
+              }  }
+            else{
+              document.getElementById("help").innerHTML="Sorry, no help available";
+            }
+          }
+          </script>
     </body>
 </html>
